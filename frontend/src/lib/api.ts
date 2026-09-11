@@ -1,15 +1,22 @@
 import { AnalysisResponse, SampleImage } from "@/types";
 
-const DIRECT_BACKEND_URL = "http://localhost:8000";
+const getBackendUrl = () => {
+  if (typeof window !== "undefined") {
+    const host = window.location.hostname || "localhost";
+    return `http://${host}:8000`;
+  }
+  return "http://localhost:8000";
+};
 
 export async function checkBackendHealth(): Promise<{ healthy: boolean; latencyMs: number }> {
   const start = performance.now();
+  const backendUrl = getBackendUrl();
   try {
     // Try proxy first
     let res = await fetch("/api/py/health").catch(() => null);
     if (!res || !res.ok) {
-      // Fallback to direct port 8000
-      res = await fetch(`${DIRECT_BACKEND_URL}/health`);
+      // Fallback to direct backend URL
+      res = await fetch(`${backendUrl}/health`);
     }
     const data = await res.json();
     const latencyMs = Math.round(performance.now() - start);
@@ -33,7 +40,8 @@ export async function analyzeBeardImage(
     }
   }
 
-  const endpoints = ["/api/py/analyze-beard", `${DIRECT_BACKEND_URL}/api/analyze-beard`];
+  const backendUrl = getBackendUrl();
+  const endpoints = ["/api/py/analyze-beard", `${backendUrl}/api/analyze-beard`];
 
   let lastError: Error | null = null;
 
@@ -76,7 +84,8 @@ export async function analyzeBeardImage(
 
 export async function fetchSampleImages(): Promise<SampleImage[]> {
   try {
-    const endpoints = ["/api/py/samples", `${DIRECT_BACKEND_URL}/api/samples`];
+    const backendUrl = getBackendUrl();
+    const endpoints = ["/api/py/samples", `${backendUrl}/api/samples`];
     for (const ep of endpoints) {
       try {
         const res = await fetch(ep);
