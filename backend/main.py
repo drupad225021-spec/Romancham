@@ -39,6 +39,7 @@ class Base64ImagePayload(BaseModel):
 
 @app.get("/health")
 @app.get("/api/health")
+@app.get("/api/py/health")
 def health_check():
     return {
         "status": "healthy",
@@ -47,9 +48,9 @@ def health_check():
         "has_landmarker": engine.landmarker is not None
     }
 
-from fastapi import FastAPI, Request, HTTPException
-
+@app.post("/analyze-beard")
 @app.post("/api/analyze-beard")
+@app.post("/api/py/analyze-beard")
 async def analyze_beard(request: Request):
     """
     Accepts either multipart file upload or JSON payload with base64 image.
@@ -119,7 +120,9 @@ async def analyze_beard(request: Request):
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=f"Computer Vision processing failed: {str(e)}")
 
+@app.get("/samples")
 @app.get("/api/samples")
+@app.get("/api/py/samples")
 def get_samples():
     """
     Returns preloaded sample bearded portraits so users can test immediately.

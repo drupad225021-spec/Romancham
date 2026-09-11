@@ -34,9 +34,21 @@ FOREHEAD_SKIN_INDICES = [10, 67, 109, 338, 297]
 class BeardCVEngine:
     def __init__(self, model_path: str = "backend/face_landmarker.task"):
         self.landmarker = None
-        if os.path.exists(model_path):
+        possible_paths = [
+            model_path,
+            os.path.join(os.path.dirname(__file__), "face_landmarker.task"),
+            os.path.join(os.getcwd(), "backend", "face_landmarker.task"),
+            os.path.join(os.getcwd(), "face_landmarker.task")
+        ]
+        found_path = None
+        for p in possible_paths:
+            if os.path.exists(p):
+                found_path = p
+                break
+
+        if found_path:
             try:
-                base_options = python.BaseOptions(model_asset_path=model_path)
+                base_options = python.BaseOptions(model_asset_path=found_path)
                 options = vision.FaceLandmarkerOptions(
                     base_options=base_options,
                     output_face_blendshapes=False,
@@ -44,11 +56,11 @@ class BeardCVEngine:
                     num_faces=1
                 )
                 self.landmarker = vision.FaceLandmarker.create_from_options(options)
-                print(f"[BeardCVEngine] Loaded FaceLandmarker successfully from {model_path}")
+                print(f"[BeardCVEngine] Loaded FaceLandmarker successfully from {found_path}")
             except Exception as e:
                 print(f"[BeardCVEngine] Warning: Could not initialize FaceLandmarker: {e}")
         else:
-            print(f"[BeardCVEngine] Warning: {model_path} not found.")
+            print(f"[BeardCVEngine] Warning: face_landmarker.task not found in any path {possible_paths}.")
 
     def process_image(self, image_bytes: bytes):
         """

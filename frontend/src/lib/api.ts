@@ -2,7 +2,11 @@ import { AnalysisResponse, SampleImage } from "../types";
 
 const getBackendUrl = () => {
   if (typeof window !== "undefined") {
+    const protocol = window.location.protocol;
     const host = window.location.hostname || "localhost";
+    if (host.includes("vercel.app") || protocol === "https:") {
+      return "";
+    }
     return `http://${host}:8000`;
   }
   return "http://localhost:8000";
