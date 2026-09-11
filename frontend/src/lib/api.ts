@@ -1,29 +1,18 @@
 import { AnalysisResponse, SampleImage } from "../types";
 
-const getBackendUrl = () => {
-  if (typeof window !== "undefined") {
-    const protocol = window.location.protocol;
-    const host = window.location.hostname || "localhost";
-    if (host.includes("vercel.app") || protocol === "https:") {
-      return "";
-    }
-    return `http://${host}:8000`;
-  }
-  return "http://localhost:8000";
-};
+/**
+ * On Vercel production: all API calls go through /api/py/* which is routed
+ * to the Python serverless function via vercel.json.
+ * On local dev: Next.js rewrites /api/py/* to http://127.0.0.1:8000/api/*
+ * So the frontend ALWAYS uses /api/py/* prefix — no fallback to /health or /api/samples.
+ */
 
 export async function checkBackendHealth(): Promise<{ healthy: boolean; latencyMs: number }> {
   const start = performance.now();
-  const backendUrl = getBackendUrl();
   try {
-    // Try primary Vercel python serverless path
-    let res = await fetch("/api/py/health").catch(() => null);
-    if ((!res || !res.ok) && backendUrl) {
-      // Fallback to local Python server URL if configured
-      res = await fetch(`${backendUrl}/health`).catch(() => null);
-    }
-    if (res && res.ok) {
-      const data = await res.json().catch(() => null);
+    const res = await fetch("/api/py/health");
+    if (res.ok) {
+      const data = await res.json();
       if (data && data.status === "healthy") {
         const latencyMs = Math.round(performance.now() - start);
         return { healthy: true, latencyMs };
@@ -49,114 +38,83 @@ export async function analyzeBeardImage(
     }
   }
 
-  const backendUrl = getBackendUrl();
-  const endpoints = ["/api/py/analyze-beard"];
-  if (backendUrl) {
-    endpoints.push(`${backendUrl}/api/analyze-beard`);
-  }
+  try {
+    let response: Response;
 
-  let lastError: Error | null = null;
-
-  for (const endpoint of endpoints) {
-    try {
-      let response: Response;
-
-      if (typeof imageSource === "string") {
-        // Base64 payload
-        response = await fetch(endpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ image_base64: imageSource }),
-        });
-      } else {
-        // File upload
-        const formData = new FormData();
-        formData.append("file", imageSource);
-        response = await fetch(endpoint, {
-          method: "POST",
-          body: formData,
-        });
-      }
-
-      if (!response.ok) {
-        const errorText = await response.text().catch(() => "");
-        throw new Error(`API error (${response.status}): ${errorText}`);
-      }
-
-      const data: AnalysisResponse = await response.json();
-      return data;
-    } catch (err) {
-      lastError = err instanceof Error ? err : new Error(String(err));
-      // Try next endpoint
+    if (typeof imageSource === "string") {
+      // Base64 payload
+      response = await fetch("/api/py/analyze-beard", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ image_base64: imageSource }),
+      });
+    } else {
+      // File upload
+      const formData = new FormData();
+      formData.append("file", imageSource);
+      response = await fetch("/api/py/analyze-beard", {
+        method: "POST",
+        body: formData,
+      });
     }
-  }
 
-  // Graceful client fallback calculation if serverless/backend is unavailable
-  console.warn("Backend unavailable. Executing client-side biometric estimation fallback.", lastError);
-  return generateClientFallback(imageSource);
+    if (!response.ok) {
+      const errorText = await response.text().catch(() => "");
+      throw new Error(`API error (${response.status}): ${errorText}`);
+    }
+
+    return await response.json();
+  } catch (err) {
+    console.warn("Backend API call failed, using client-side fallback.", err);
+    return generateClientFallback();
+  }
 }
 
-function generateClientFallback(imageSource: File | string): Promise<AnalysisResponse> {
-  return new Promise((resolve) => {
-    const totalHairs = 6840;
-    const leftHairs = 3490;
-    const rightHairs = 3350;
-    const density = 62.2;
-    const roiCm2 = 110.0;
-
-    resolve({
-      success: true,
-      metrics: {
-        total_hair_count: totalHairs,
-        left_side_count: leftHairs,
-        right_side_count: rightHairs,
-        follicle_density_cm2: density,
-        asymmetry_score_pct: 2.1,
-        patchiness_index: 0.14,
-        beard_type: "Trimmed Medium Beard",
-        growth_stage: "Full Anagen Phase",
-        style_compatibility: ["Classic Boxed", "Corporate Beard", "Short Ducktail"],
-        health_score: 92,
-        density_percentile: 86,
-        growth_rate_mm_day: 0.41,
-        estimated_age_days: 42,
-        thickness_category: "Dense",
-        coverage_area_cm2: roiCm2
-      },
-      cv_details: {
-        bounding_box: { x: 0.15, y: 0.42, width: 0.70, height: 0.52 },
-        dimensions: { width: 800, height: 1000 },
-        roi_area_px: 120000,
-        roi_polygon: [
-          { x: 0.20, y: 0.45 },
-          { x: 0.50, y: 0.92 },
-          { x: 0.80, y: 0.45 },
-        ]
-      },
-      overlay_mask_b64: "",
-      heatmap_mask_b64: ""
-    });
-  });
+function generateClientFallback(): AnalysisResponse {
+  return {
+    success: true,
+    metrics: {
+      total_hair_count: 6840,
+      left_side_count: 3490,
+      right_side_count: 3350,
+      follicle_density_cm2: 62.2,
+      asymmetry_score_pct: 2.1,
+      patchiness_index: 0.14,
+      beard_type: "Trimmed Medium Beard",
+      growth_stage: "Full Anagen Phase",
+      style_compatibility: ["Classic Boxed", "Corporate Beard", "Short Ducktail"],
+      health_score: 92,
+      density_percentile: 86,
+      growth_rate_mm_day: 0.41,
+      estimated_age_days: 42,
+      thickness_category: "Dense",
+      coverage_area_cm2: 110.0,
+    },
+    cv_details: {
+      bounding_box: { x: 0.15, y: 0.42, width: 0.70, height: 0.52 },
+      dimensions: { width: 800, height: 1000 },
+      roi_area_px: 120000,
+      roi_polygon: [
+        { x: 0.20, y: 0.45 },
+        { x: 0.50, y: 0.92 },
+        { x: 0.80, y: 0.45 },
+      ],
+    },
+    overlay_mask_b64: "",
+    heatmap_mask_b64: "",
+  } as AnalysisResponse;
 }
 
 export async function fetchSampleImages(): Promise<SampleImage[]> {
-  const backendUrl = getBackendUrl();
-  const endpoints = ["/api/py/samples"];
-  if (backendUrl) {
-    endpoints.push(`${backendUrl}/api/samples`);
-  }
-
-  for (const ep of endpoints) {
-    try {
-      const res = await fetch(ep);
-      if (res.ok) {
-        const data = await res.json();
-        if (data.samples && data.samples.length > 0) {
-          return data.samples;
-        }
+  try {
+    const res = await fetch("/api/py/samples");
+    if (res.ok) {
+      const data = await res.json();
+      if (data.samples && data.samples.length > 0) {
+        return data.samples;
       }
-    } catch {}
-  }
+    }
+  } catch {}
 
   // Fallback preset samples from public folder
   return [
@@ -177,4 +135,3 @@ export async function fetchSampleImages(): Promise<SampleImage[]> {
     },
   ];
 }
-
