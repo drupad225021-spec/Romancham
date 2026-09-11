@@ -2,8 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import { Sparkles, Volume2, VolumeX, Cpu, Activity, Info, RefreshCw } from "lucide-react";
-import { checkBackendHealth } from "@/lib/api";
-import { playBeep } from "@/lib/audio";
+import { checkBackendHealth } from "../lib/api";
+import { playBeep } from "../lib/audio";
 
 interface NavbarProps {
   soundEnabled: boolean;

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { X, Cpu, Eye, Sparkles, CheckCircle2, ShieldAlert } from "lucide-react";
-import { playBeep } from "@/lib/audio";
+import { playBeep } from "../lib/audio";
 
 interface InfoModalProps {
   isOpen: boolean;

@@ -13,8 +13,8 @@ import {
   Crosshair,
   Sparkles
 } from "lucide-react";
-import { AnalysisResponse } from "@/types";
-import { playBeep } from "@/lib/audio";
+import { AnalysisResponse } from "../types";
+import { playBeep } from "../lib/audio";
 
 interface ScanOverlayProps {
   imagePreviewUrl: string;

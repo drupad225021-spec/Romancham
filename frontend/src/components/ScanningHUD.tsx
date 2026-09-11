@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Terminal, Cpu, Loader2, Sparkles } from "lucide-react";
-import { playLaserScan } from "@/lib/audio";
+import { playLaserScan } from "../lib/audio";
 
 interface ScanningHUDProps {
   imagePreviewUrl: string;

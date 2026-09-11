@@ -1,4 +1,4 @@
-import { AnalysisResponse, SampleImage } from "@/types";
+import { AnalysisResponse, SampleImage } from "../types";
 
 const getBackendUrl = () => {
   if (typeof window !== "undefined") {

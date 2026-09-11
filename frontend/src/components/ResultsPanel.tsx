@@ -16,8 +16,8 @@ import {
   Leaf,
   Scissors
 } from "lucide-react";
-import { AnalysisResponse } from "@/types";
-import { playBeep, playSuccessChime } from "@/lib/audio";
+import { AnalysisResponse } from "../types";
+import { playBeep, playSuccessChime } from "../lib/audio";
 import confetti from "canvas-confetti";
 
 interface ResultsPanelProps {

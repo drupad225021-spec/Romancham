@@ -14,8 +14,8 @@ import {
   Square,
   ShieldCheck
 } from "lucide-react";
-import { SampleImage } from "@/types";
-import { playBeep, playLaserScan } from "@/lib/audio";
+import { SampleImage } from "../types";
+import { playBeep, playLaserScan } from "../lib/audio";
 
 interface ImageUploaderProps {
   onImageSelected: (source: File | string, previewUrl: string) => void;

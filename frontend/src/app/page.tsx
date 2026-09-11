@@ -1,16 +1,16 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Navbar } from "@/components/Navbar";
-import { ImageUploader } from "@/components/ImageUploader";
-import { ScanningHUD } from "@/components/ScanningHUD";
-import { ScanOverlay } from "@/components/ScanOverlay";
-import { ResultsPanel } from "@/components/ResultsPanel";
-import { ReportModal } from "@/components/ReportModal";
-import { InfoModal } from "@/components/InfoModal";
-import { analyzeBeardImage, fetchSampleImages } from "@/lib/api";
-import { AnalysisResponse, SampleImage } from "@/types";
-import { playBeep } from "@/lib/audio";
+import { Navbar } from "../components/Navbar";
+import { ImageUploader } from "../components/ImageUploader";
+import { ScanningHUD } from "../components/ScanningHUD";
+import { ScanOverlay } from "../components/ScanOverlay";
+import { ResultsPanel } from "../components/ResultsPanel";
+import { ReportModal } from "../components/ReportModal";
+import { InfoModal } from "../components/InfoModal";
+import { analyzeBeardImage, fetchSampleImages } from "../lib/api";
+import { AnalysisResponse, SampleImage } from "../types";
+import { playBeep } from "../lib/audio";
 import { Sparkles, Cpu, Scan, CheckCircle2, AlertCircle, RefreshCw } from "lucide-react";
 
 export default function Home() {

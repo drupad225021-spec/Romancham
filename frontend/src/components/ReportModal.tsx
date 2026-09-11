@@ -2,8 +2,8 @@
 
 import React, { useRef, useState } from "react";
 import { X, Download, Share2, Check, Printer, ShieldCheck, Sparkles } from "lucide-react";
-import { AnalysisResponse } from "@/types";
-import { playBeep } from "@/lib/audio";
+import { AnalysisResponse } from "../types";
+import { playBeep } from "../lib/audio";
 
 interface ReportModalProps {
   isOpen: boolean;
