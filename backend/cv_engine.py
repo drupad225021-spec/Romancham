@@ -405,7 +405,7 @@ if __name__ == "__main__":
     print("--- Running BeardCVEngine Test ---")
     test_engine = BeardCVEngine(model_path=os.path.join(os.path.dirname(__file__), "face_landmarker.task"))
     
-    test_files = glob.glob("test_*.jpg") + glob.glob("backend/samples/*.jpg") + glob.glob("backend/samples/*.png")
+    test_files = glob.glob("test_assets/*.jpg") + glob.glob("test_*.jpg") + glob.glob("backend/samples/*.jpg") + glob.glob("backend/samples/*.png")
     if not test_files:
         print("No test images found.")
     else:
