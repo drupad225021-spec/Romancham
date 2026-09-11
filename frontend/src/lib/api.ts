@@ -104,17 +104,17 @@ export async function fetchSampleImages(): Promise<SampleImage[]> {
     {
       id: "lumberjack_full_beard",
       title: "Full Density Beard",
-      image_b64: "/samples/lumberjack_full_beard.jpg",
+      image_b64: "samples/lumberjack_full_beard.jpg",
     },
     {
       id: "designer_stubble",
       title: "Designer Stubble",
-      image_b64: "/samples/designer_stubble.jpg",
+      image_b64: "samples/designer_stubble.jpg",
     },
     {
       id: "classic_boxed_beard",
       title: "Classic Boxed Beard",
-      image_b64: "/samples/classic_boxed_beard.jpg",
+      image_b64: "samples/classic_boxed_beard.jpg",
     },
   ];
 }
