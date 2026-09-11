@@ -1,13 +1,25 @@
-import cv2
+try:
+    import cv2
+except Exception as _e:
+    cv2 = None
+    print(f"[cv_engine] Warning: cv2 import failed: {_e}")
+
 import numpy as np
 import base64
 import os
 import math
 from io import BytesIO
 from PIL import Image
-import mediapipe as mp
-from mediapipe.tasks import python
-from mediapipe.tasks.python import vision
+
+try:
+    import mediapipe as mp
+    from mediapipe.tasks import python
+    from mediapipe.tasks.python import vision
+except Exception as _e:
+    mp = None
+    python = None
+    vision = None
+    print(f"[cv_engine] Warning: mediapipe import failed: {_e}")
 
 # Landmark indices for beard region in 468/478 Face Mesh:
 # Jawline perimeter
@@ -34,6 +46,10 @@ FOREHEAD_SKIN_INDICES = [10, 67, 109, 338, 297]
 class BeardCVEngine:
     def __init__(self, model_path: str = "backend/face_landmarker.task"):
         self.landmarker = None
+        if python is None or vision is None:
+            print("[BeardCVEngine] MediaPipe python vision task API unavailable.")
+            return
+
         possible_paths = [
             model_path,
             os.path.join(os.path.dirname(__file__), "face_landmarker.task"),
