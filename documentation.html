@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Romancham.AI — Complete Engineering & Architecture Documentation</title>
-  <meta name="description" content="Technical documentation and architectural design breakdown of Romancham: Computer Vision Follicle Estimation, MediaPipe 468-point Face Mesh, and Morphological Skeletonization." />
+  <meta name="description"
+    content="Technical documentation and architectural design breakdown of Romancham: Computer Vision Follicle Estimation, MediaPipe 468-point Face Mesh, and Morphological Skeletonization." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
   <style>
     :root {
       --bg: #07090e;
@@ -42,7 +46,7 @@
       font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       line-height: 1.68;
       overflow-x: hidden;
-      background-image: 
+      background-image:
         radial-gradient(ellipse at 15% 0%, rgba(0, 240, 255, 0.08) 0%, transparent 50%),
         radial-gradient(ellipse at 85% 20%, rgba(217, 70, 239, 0.06) 0%, transparent 50%),
         linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
@@ -54,9 +58,11 @@
     ::-webkit-scrollbar {
       width: 8px;
     }
+
     ::-webkit-scrollbar-track {
       background: var(--bg);
     }
+
     ::-webkit-scrollbar-thumb {
       background: #1e293b;
       border-radius: 4px;
@@ -182,8 +188,17 @@
     }
 
     @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(0.85); }
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.4;
+        transform: scale(0.85);
+      }
     }
 
     .hero h1 {
@@ -276,6 +291,7 @@
       .layout-grid {
         grid-template-columns: 1fr;
       }
+
       .toc-sidebar {
         display: none;
       }
@@ -469,11 +485,26 @@
       color: inherit;
     }
 
-    .code-comment { color: #64748b; }
-    .code-keyword { color: #f43f5e; font-weight: 600; }
-    .code-func { color: #38bdf8; }
-    .code-string { color: #34d399; }
-    .code-num { color: #fbbf24; }
+    .code-comment {
+      color: #64748b;
+    }
+
+    .code-keyword {
+      color: #f43f5e;
+      font-weight: 600;
+    }
+
+    .code-func {
+      color: #38bdf8;
+    }
+
+    .code-string {
+      color: #34d399;
+    }
+
+    .code-num {
+      color: #fbbf24;
+    }
 
     /* Tables */
     .table-container {
@@ -572,6 +603,7 @@
     }
   </style>
 </head>
+
 <body>
 
   <!-- Navigation Bar -->
@@ -589,7 +621,7 @@
         <li><a href="#beard-gate">Presence Gate</a></li>
         <li><a href="#biometrics">Biometrics</a></li>
         <li><a href="#frontend-realtime">Live WebCam</a></li>
-        <li><a href="http://localhost:3001" target="_blank" class="nav-cta">Launch App &rarr;</a></li>
+        <li><a href="http://localhost:3000" target="_blank" class="nav-cta">Launch App &rarr;</a></li>
       </ul>
     </div>
   </header>
@@ -605,7 +637,8 @@
         How <span class="gradient-text">Romancham</span> Was Built
       </h1>
       <p class="hero-sub">
-        An in-depth breakdown of the computer vision engine, landmark segmentation, morphological skeletonization, and real-time biometric analytics pipeline.
+        An in-depth breakdown of the computer vision engine, landmark segmentation, morphological skeletonization, and
+        real-time biometric analytics pipeline.
       </p>
 
       <!-- Key Metrics -->
@@ -613,22 +646,26 @@
         <div class="metric-card">
           <div class="metric-val">468 Pts</div>
           <div class="metric-label">Facial Landmark Mesh</div>
-          <div class="metric-desc">MediaPipe sub-millimeter 3D spatial mesh for isolating lower mandibular & cheek regions.</div>
+          <div class="metric-desc">MediaPipe sub-millimeter 3D spatial mesh for isolating lower mandibular & cheek
+            regions.</div>
         </div>
         <div class="metric-card">
           <div class="metric-val">1-Pixel</div>
           <div class="metric-label">Zhang-Suen Thinning</div>
-          <div class="metric-desc">Iterative morphological skeletonization reducing dense hair clusters into topological vectors.</div>
+          <div class="metric-desc">Iterative morphological skeletonization reducing dense hair clusters into topological
+            vectors.</div>
         </div>
         <div class="metric-card">
           <div class="metric-val">135 mm</div>
           <div class="metric-label">Physical Scale Calibration</div>
-          <div class="metric-desc">Zygomatic cheekbone breadth normalization to compute physical hair density per cm².</div>
+          <div class="metric-desc">Zygomatic cheekbone breadth normalization to compute physical hair density per cm².
+          </div>
         </div>
         <div class="metric-card">
           <div class="metric-val">30 FPS</div>
           <div class="metric-label">Live Browser HUD</div>
-          <div class="metric-desc">Client-side Sobel spatial gradients and glowing laser telemetry for real-time webcam feedback.</div>
+          <div class="metric-desc">Client-side Sobel spatial gradients and glowing laser telemetry for real-time webcam
+            feedback.</div>
         </div>
       </div>
     </div>
@@ -636,7 +673,7 @@
 
   <!-- Content Section -->
   <div class="container layout-grid">
-    
+
     <!-- Table of Contents Sticky Sidebar -->
     <aside class="toc-sidebar">
       <div class="toc-title">Table of Contents</div>
@@ -664,7 +701,8 @@
         </div>
         <p>
           <strong>Romancham</strong> was engineered to solve a difficult real-world computer vision problem:
-          <em>how to mathematically quantify individual facial hair follicles from standard 2D digital portraits or webcams without requiring a heavy, slow, or black-box neural network model.</em>
+          <em>how to mathematically quantify individual facial hair follicles from standard 2D digital portraits or
+            webcams without requiring a heavy, slow, or black-box neural network model.</em>
         </p>
         <p>
           The platform employs a hybrid architecture:
@@ -752,15 +790,26 @@
           <h2>2. MediaPipe Face Mesh & Oral Cavity Cutout</h2>
         </div>
         <p>
-          Standard bounding box face detectors (like Haar Cascades or generic YOLO) fail because facial hair is confined to specific anatomical regions: the cheeks, chin, mustache, and jawline. Detecting hair across the entire face produces false positives on hair bangs, eyelashes, and eyebrows.
+          Standard bounding box face detectors (like Haar Cascades or generic YOLO) fail because facial hair is confined
+          to specific anatomical regions: the cheeks, chin, mustache, and jawline. Detecting hair across the entire face
+          produces false positives on hair bangs, eyelashes, and eyebrows.
         </p>
         <p>
-          We employ Google's <code>face_landmarker.task</code> 468/478-point 3D Face Mesh to create a precise anatomical polygonal mask:
+          We employ Google's <code>face_landmarker.task</code> 468/478-point 3D Face Mesh to create a precise anatomical
+          polygonal mask:
         </p>
         <ul>
-          <li><strong>Jawline perimeter indices</strong>: <code>[234, 93, 132, 58, 172, 136, 150, 149, 176, 148, 152, 377, 400, 378, 379, 365, 397, 288, 361, 454]</code></li>
-          <li><strong>Upper beard & cheek margins</strong>: <code>[454, 323, 366, 411, 427, 345, 287, 410, 322, 391, 393, 164, 167, 165, 92, 186, 57, 212, 116, 207, 137, 93, 234]</code></li>
-          <li><strong>Oral Cavity Punch-Out</strong>: The outer lips <code>[61, 185, 40, 39, 37, 0, 267, 269, 270, 409, 291, 375, 321, 405, 314, 17, 84, 181, 91, 146, 61]</code> are punched out with <code>cv2.fillPoly(beard_mask, ..., 0)</code> so teeth, lips, and tongue reflections do not get mistaken for beard hairs.</li>
+          <li><strong>Jawline perimeter indices</strong>:
+            <code>[234, 93, 132, 58, 172, 136, 150, 149, 176, 148, 152, 377, 400, 378, 379, 365, 397, 288, 361, 454]</code>
+          </li>
+          <li><strong>Upper beard & cheek margins</strong>:
+            <code>[454, 323, 366, 411, 427, 345, 287, 410, 322, 391, 393, 164, 167, 165, 92, 186, 57, 212, 116, 207, 137, 93, 234]</code>
+          </li>
+          <li><strong>Oral Cavity Punch-Out</strong>: The outer lips
+            <code>[61, 185, 40, 39, 37, 0, 267, 269, 270, 409, 291, 375, 321, 405, 314, 17, 84, 181, 91, 146, 61]</code>
+            are punched out with <code>cv2.fillPoly(beard_mask, ..., 0)</code> so teeth, lips, and tongue reflections do
+            not get mistaken for beard hairs.
+          </li>
         </ul>
 
         <pre><code><span class="code-comment"># Extract jawline and cheek polygon from 468 MediaPipe landmarks</span>
@@ -778,16 +827,20 @@ cv2.fillPoly(beard_mask, [np.array(lip_pts, dtype=np.int32)], <span class="code-
           <h2>3. Multi-Scale Black Top-Hat Transform</h2>
         </div>
         <p>
-          In dermatological trichology, hair filaments present as dark, narrow linear structures superimposed on a lighter dermal surface. A direct edge detector (like standard Sobel or Canny) triggers heavily on skin pores, skin folds, and compression artifacts.
+          In dermatological trichology, hair filaments present as dark, narrow linear structures superimposed on a
+          lighter dermal surface. A direct edge detector (like standard Sobel or Canny) triggers heavily on skin pores,
+          skin folds, and compression artifacts.
         </p>
         <p>
-          To solve this, we compute the <strong>Black Top-Hat Transform</strong>, which is the difference between the morphological closing of an image and the input image:
+          To solve this, we compute the <strong>Black Top-Hat Transform</strong>, which is the difference between the
+          morphological closing of an image and the input image:
         </p>
         <p style="text-align: center; font-family: 'JetBrains Mono', monospace; color: var(--cyan);">
           TopHat(I) = (I &bull; B) - I
         </p>
         <p>
-          By taking the maximum response between a 3x3 and a 5x5 rectangular structuring element, we isolate hair filaments having widths of 1 to 4 pixels while suppressing broader skin gradients:
+          By taking the maximum response between a 3x3 and a 5x5 rectangular structuring element, we isolate hair
+          filaments having widths of 1 to 4 pixels while suppressing broader skin gradients:
         </p>
         <pre><code>k3 = cv2.getStructuringElement(cv2.MORPH_RECT, (<span class="code-num">3</span>, <span class="code-num">3</span>))
 k5 = cv2.getStructuringElement(cv2.MORPH_RECT, (<span class="code-num">5</span>, <span class="code-num">5</span>))
@@ -806,18 +859,23 @@ hair_candidates = cv2.bitwise_and(canny, canny, mask=((tophat > <span class="cod
           <h2>4. Zhang-Suen Morphological Thinning</h2>
         </div>
         <p>
-          A single beard hair in a high-resolution portrait can span 3 to 12 pixels in width. If we counted raw pixels or contours, thick beard strands would register as hundreds of distinct points.
+          A single beard hair in a high-resolution portrait can span 3 to 12 pixels in width. If we counted raw pixels
+          or contours, thick beard strands would register as hundreds of distinct points.
         </p>
         <p>
-          We employ the <strong>Zhang-Suen thinning algorithm</strong> (<code>cv2.ximgproc.thinning</code>) to iteratively erode the binary hair candidate mask until all linear structures are reduced to 1-pixel-wide central medial axes (topological skeletons).
+          We employ the <strong>Zhang-Suen thinning algorithm</strong> (<code>cv2.ximgproc.thinning</code>) to
+          iteratively erode the binary hair candidate mask until all linear structures are reduced to 1-pixel-wide
+          central medial axes (topological skeletons).
         </p>
         <p>
-          After skeletonization, we run <code>cv2.connectedComponentsWithStats</code> to analyze the length and centroids of every discrete hair filament:
+          After skeletonization, we run <code>cv2.connectedComponentsWithStats</code> to analyze the length and
+          centroids of every discrete hair filament:
         </p>
         <ul>
           <li>Strands &lt; 2px in length are rejected as camera sensor noise.</li>
           <li>Strands &gt; 1500px in length are rejected as clothing collars or scarf seams.</li>
-          <li>Every surviving strand's centroid determines whether it belongs to the left or right mandibular quadrant.</li>
+          <li>Every surviving strand's centroid determines whether it belongs to the left or right mandibular quadrant.
+          </li>
         </ul>
       </section>
 
@@ -828,7 +886,8 @@ hair_candidates = cv2.bitwise_and(canny, canny, mask=((tophat > <span class="cod
           <h2>5. The Robust Beard Presence Gate</h2>
         </div>
         <p>
-          A frequent issue with facial hair algorithms is giving female portraits or clean-shaven faces non-zero follicle counts (e.g. 1,000–3,000 hairs) due to peach fuzz or camera noise.
+          A frequent issue with facial hair algorithms is giving female portraits or clean-shaven faces non-zero
+          follicle counts (e.g. 1,000–3,000 hairs) due to peach fuzz or camera noise.
         </p>
         <p>
           To guarantee zero false positives, we engineered a multi-signal <strong>Beard Presence Gate</strong>:
@@ -837,9 +896,15 @@ hair_candidates = cv2.bitwise_and(canny, canny, mask=((tophat > <span class="cod
         <div class="card">
           <div class="card-title">Three Quantitative Dermal Signatures</div>
           <ol style="margin-left: 20px; color: #cbd5e1; font-size: 0.92rem;">
-            <li><strong>Filament Percentage (<code>filament_pct</code>)</strong>: The fraction of pixels in the lower-face mask showing genuine Top-Hat filament activation. Smooth skin remains below 3.0%, while beards exceed 3.5% to 28%.</li>
-            <li><strong>Forehead Skin Contrast (<code>darkness_diff</code>)</strong>: We sample baseline bare skin at the upper forehead landmarks <code>[10, 67, 109, 338, 297]</code> and compare it to the mean luminance of the beard ROI. Clean-shaven skin has a negligible differential (&lt; 15), whereas beards create significant darkening (&gt; 25 to 100+).</li>
-            <li><strong>Valid Hair Components (<code>valid_hair_components</code>)</strong>: Connected component filament count. Clean skin produces &lt; 4 valid components.</li>
+            <li><strong>Filament Percentage (<code>filament_pct</code>)</strong>: The fraction of pixels in the
+              lower-face mask showing genuine Top-Hat filament activation. Smooth skin remains below 3.0%, while beards
+              exceed 3.5% to 28%.</li>
+            <li><strong>Forehead Skin Contrast (<code>darkness_diff</code>)</strong>: We sample baseline bare skin at
+              the upper forehead landmarks <code>[10, 67, 109, 338, 297]</code> and compare it to the mean luminance of
+              the beard ROI. Clean-shaven skin has a negligible differential (&lt; 15), whereas beards create
+              significant darkening (&gt; 25 to 100+).</li>
+            <li><strong>Valid Hair Components (<code>valid_hair_components</code>)</strong>: Connected component
+              filament count. Clean skin produces &lt; 4 valid components.</li>
           </ol>
         </div>
 
@@ -925,14 +990,19 @@ if not is_beard_present:
           <h2>6. Physical Scale & Follicle Density</h2>
         </div>
         <p>
-          Camera distance varies drastically between a close-up selfie and a portrait taken from two meters away. Counting pixels without spatial normalization produces erratic results.
+          Camera distance varies drastically between a close-up selfie and a portrait taken from two meters away.
+          Counting pixels without spatial normalization produces erratic results.
         </p>
         <p>
-          We calibrate physical scale using the <strong>anatomical inter-cheekbone distance (Zygomatic breadth)</strong>:
+          We calibrate physical scale using the <strong>anatomical inter-cheekbone distance (Zygomatic
+            breadth)</strong>:
         </p>
         <ul>
-          <li>The distance between MediaPipe landmark <code>234</code> (left zygomatic arch) and landmark <code>454</code> (right zygomatic arch) averages <strong>135 millimeters</strong> across adult human populations.</li>
-          <li>We compute the Euclidean pixel distance between these points: 
+          <li>The distance between MediaPipe landmark <code>234</code> (left zygomatic arch) and landmark
+            <code>454</code> (right zygomatic arch) averages <strong>135 millimeters</strong> across adult human
+            populations.
+          </li>
+          <li>We compute the Euclidean pixel distance between these points:
             <code>pixel_face_width = ||pt_left - pt_right||</code>
           </li>
           <li>The physical scale factor is derived:
@@ -943,7 +1013,8 @@ if not is_beard_present:
           </li>
         </ul>
         <p>
-          This converts raw pixel areas directly into true biological surface area (typically 60 to 160 cm² for adult male lower faces) and allows calculating true follicular density in <strong>hairs per cm²</strong>.
+          This converts raw pixel areas directly into true biological surface area (typically 60 to 160 cm² for adult
+          male lower faces) and allows calculating true follicular density in <strong>hairs per cm²</strong>.
         </p>
       </section>
 
@@ -961,21 +1032,27 @@ if not is_beard_present:
             <div class="step-num">A</div>
             <div class="step-content">
               <h4>Bilateral Mandibular Symmetry</h4>
-              <p>Calculates the left-to-right ratio across the sagittal facial midline (midpoint of nose tip <code>#1</code> and chin <code>#152</code>). Reports equilibrium percentage and describes predominance (e.g. "Symmetric Euclidean Balance" or "Right-Sided Predominance").</p>
+              <p>Calculates the left-to-right ratio across the sagittal facial midline (midpoint of nose tip
+                <code>#1</code> and chin <code>#152</code>). Reports equilibrium percentage and describes predominance
+                (e.g. "Symmetric Euclidean Balance" or "Right-Sided Predominance").
+              </p>
             </div>
           </div>
           <div class="step-box">
             <div class="step-num">B</div>
             <div class="step-content">
               <h4>Hydration & Grooming Telemetry</h4>
-              <p>Estimates optimal beard oil dosage in microliters (µL) and drops (~50 µL/drop) based on follicular surface area, alongside estimated shaving duration and cartridge wear index.</p>
+              <p>Estimates optimal beard oil dosage in microliters (µL) and drops (~50 µL/drop) based on follicular
+                surface area, alongside estimated shaving duration and cartridge wear index.</p>
             </div>
           </div>
           <div class="step-box">
             <div class="step-num">C</div>
             <div class="step-content">
               <h4>Persona Classification</h4>
-              <p>Categorizes the subject into 6 follicular archetypes: Clean Shaven (Level 0), Light Stubble (Level 1), Medium Trim (Level 2), Full Follicular Coverage (Level 3), Heavy Lumberjack (Level 4), and Maximum Volumetric Density (Level 5).</p>
+              <p>Categorizes the subject into 6 follicular archetypes: Clean Shaven (Level 0), Light Stubble (Level 1),
+                Medium Trim (Level 2), Full Follicular Coverage (Level 3), Heavy Lumberjack (Level 4), and Maximum
+                Volumetric Density (Level 5).</p>
             </div>
           </div>
         </div>
@@ -991,9 +1068,15 @@ if not is_beard_present:
           The backend returns two transparent 32-bit RGBA base64 masks overlaid directly on top of the portrait:
         </p>
         <ul>
-          <li><strong>Glow Bloom Strands</strong>: Filtered skeleton strands dilated by 3x3 and blurred with a 7x7 Gaussian kernel to synthesize a neon bloom aura (<code>#00e5ff</code> cyan transitioning to <code>#d946ef</code> magenta).</li>
-          <li><strong>Biometric HUD Wireframe</strong>: Renders landmark dots at key mandibular coordinates, chin midline tracking vector, and tech corner brackets on the bounding box.</li>
-          <li><strong>Turbo Density Heatmap</strong>: Applies a 31x31 Gaussian blur to the skeleton and maps normalized follicular concentration through the scientific <code>cv2.COLORMAP_TURBO</code> color gradient, isolated strictly within the beard polygon.</li>
+          <li><strong>Glow Bloom Strands</strong>: Filtered skeleton strands dilated by 3x3 and blurred with a 7x7
+            Gaussian kernel to synthesize a neon bloom aura (<code>#00e5ff</code> cyan transitioning to
+            <code>#d946ef</code> magenta).
+          </li>
+          <li><strong>Biometric HUD Wireframe</strong>: Renders landmark dots at key mandibular coordinates, chin
+            midline tracking vector, and tech corner brackets on the bounding box.</li>
+          <li><strong>Turbo Density Heatmap</strong>: Applies a 31x31 Gaussian blur to the skeleton and maps normalized
+            follicular concentration through the scientific <code>cv2.COLORMAP_TURBO</code> color gradient, isolated
+            strictly within the beard polygon.</li>
         </ul>
       </section>
 
@@ -1004,14 +1087,18 @@ if not is_beard_present:
           <h2>9. Live Webcam Real-Time Engine</h2>
         </div>
         <p>
-          To give users instant live feedback before locking in a high-res capture, the frontend implementation in <code>ImageUploader.tsx</code> runs an in-browser edge detection pipeline inside a 60 FPS <code>requestAnimationFrame</code> loop:
+          To give users instant live feedback before locking in a high-res capture, the frontend implementation in
+          <code>ImageUploader.tsx</code> runs an in-browser edge detection pipeline inside a 60 FPS
+          <code>requestAnimationFrame</code> loop:
         </p>
         <ul>
           <li>Captures video frames to an offscreen processing canvas at 160x120 resolution.</li>
-          <li>Samples the lower 50% mandibular region and computes spatial luminance gradients (Sobel approximation).</li>
+          <li>Samples the lower 50% mandibular region and computes spatial luminance gradients (Sobel approximation).
+          </li>
           <li>Renders real-time glowing strand sparks and an animated bidirectional sweeping laser scanner bar.</li>
           <li>Continuously updates live hair estimates and bilateral balance ratios in real-time.</li>
-          <li>Clicking <strong>"Lock & Generate Full Report"</strong> takes the full-resolution uncompressed frame from the video track, sends it to FastAPI, and produces the complete multi-layer diagnostic dashboard.</li>
+          <li>Clicking <strong>"Lock & Generate Full Report"</strong> takes the full-resolution uncompressed frame from
+            the video track, sends it to FastAPI, and produces the complete multi-layer diagnostic dashboard.</li>
         </ul>
       </section>
 
@@ -1027,4 +1114,5 @@ if not is_beard_present:
   </footer>
 
 </body>
+
 </html>
